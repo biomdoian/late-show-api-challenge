@@ -11,6 +11,8 @@ flask-jwt-extended = "*"
 psycopg2-binary = "*"
 sqlalchemy-serializer = "*"
 faker = "*"
+flask-restful = "*"
+python-dotenv = "*"
 
 [dev-packages]
 
