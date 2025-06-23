@@ -13,6 +13,7 @@ sqlalchemy-serializer = "*"
 faker = "*"
 flask-restful = "*"
 python-dotenv = "*"
+flask-bcrypt = "*"
 
 [dev-packages]
 
