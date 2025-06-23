@@ -1,0 +1,247 @@
+{
+	"info": {
+		"_postman_id": "a1b2c3d4-e5f6-7890-1234-567890abcdef",
+		"name": "Flask Code Challenge — Late Show API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_collection_link": "https://www.getpostman.com/collections/a1b2c3d4-e5f6-7890-1234-567890abcdef"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"newuser\",\n    \"password\": \"strongpass\"\n}"
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5555/register",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5555",
+							"path": [
+								"register"
+							]
+						},
+						"description": "Registers a new user. Change username to avoid 422 Unprocessable Entity if already exists."
+					},
+					"response": []
+				},
+				{
+					"name": "Login User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.environment.set(\"access_token\", jsonData.access_token);",
+									"console.log(\"Access Token: \" + jsonData.access_token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"testuser\",\n    \"password\": \"password123\"\n}"
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5555/login",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5555",
+							"path": [
+								"login"
+							]
+						},
+						"description": "Logs in a user and saves the access_token to Postman environment for protected requests."
+					},
+					"response": []
+				}
+			],
+			"description": "Authentication Routes"
+		},
+		{
+			"name": "Guests",
+			"item": [
+				{
+					"name": "List All Guests",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5555/guests",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5555",
+							"path": [
+								"guests"
+							]
+						},
+						"description": "Retrieves a list of all guests."
+					},
+					"response": []
+				}
+			],
+			"description": "Guest-related Routes"
+		},
+		{
+			"name": "Episodes",
+			"item": [
+				{
+					"name": "List All Episodes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5555/episodes",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5555",
+							"path": [
+								"episodes"
+							]
+						},
+						"description": "Retrieves a list of all episodes."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Episode by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5555/episodes/1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5555",
+							"path": [
+								"episodes",
+								"1"
+							]
+						},
+						"description": "Retrieves a single episode by its ID, including its appearances."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Episode by ID (Protected)",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:5555/episodes/2",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5555",
+							"path": [
+								"episodes",
+								"2"
+							]
+						},
+						"description": "Deletes an episode and its associated appearances. Requires JWT token. Change ID as needed."
+					},
+					"response": []
+				}
+			],
+			"description": "Episode-related Routes"
+		},
+		{
+			"name": "Appearances",
+			"item": [
+				{
+					"name": "Create New Appearance (Protected)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"guest_id\": 1,\n    \"episode_id\": 1,\n    \"rating\": 5\n}"
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5555/appearances",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5555",
+							"path": [
+								"appearances"
+							]
+						},
+						"description": "Creates a new appearance. Requires JWT token. Update guest_id and episode_id with existing IDs."
+					},
+					"response": []
+				}
+			],
+			"description": "Appearance-related Routes"
+		}
+	],
+	"protocolProfileBehavior": {}
+}
