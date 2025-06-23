@@ -24,7 +24,7 @@ class Guest(db.Model, SerializerMixin):
     def __repr__(self):
         return f'<Guest {self.id}: {self.name} ({self.occupation})>'
 
-    # --- Validation for Guest model ---
+    #Validation for Guest model
     @validates('name')
     def validate_name(self, key, name):
         if not name:

@@ -28,7 +28,7 @@ class Appearance(db.Model, SerializerMixin):
     def __repr__(self):
         return f'<Appearance {self.id}: Rating {self.rating}>'
 
-    # --- Validation for Appearance model ---
+    #Validation for Appearance model
     @validates('rating')
     def validate_rating(self, key, rating):
         if not isinstance(rating, int) or not (1 <= rating <= 5):

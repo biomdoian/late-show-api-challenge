@@ -16,15 +16,13 @@ class User(db.Model, SerializerMixin):
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
 
-    # Relationships (if any, would go here. No explicit relationships in requirements for User yet)
-
     # Serialization rules: Prevent _password_hash from being exposed
     serialize_rules = ('-_password_hash',)
 
     def __repr__(self):
         return f'<User {self.id}: {self.username}>'
 
-    # --- Password Hashing with Flask-Bcrypt (imported from config) ---
+    # Password Hashing with Flask-Bcrypt 
     @property
     def password_hash(self):
         raise AttributeError('Password hashes cannot be read.')
@@ -38,7 +36,7 @@ class User(db.Model, SerializerMixin):
         from config import bcrypt # Local import
         return bcrypt.check_password_hash(self._password_hash, password.encode('utf-8'))
 
-    # --- Validation for User model ---
+    #Validation for User model 
     @validates('username')
     def validate_username(self, key, username):
         if not username:

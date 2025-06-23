@@ -11,21 +11,6 @@ class GuestListResource(Resource):
         guests = Guest.query.all()
         return [guest.to_dict() for guest in guests], 200
 
-    # POST /guests is not required by prompt, but would go here if needed
-    # def post(self):
-    #     data = request.get_json()
-    #     try:
-    #         new_guest = Guest(name=data.get('name'), occupation=data.get('occupation'))
-    #         db.session.add(new_guest)
-    #         db.session.commit()
-    #         return new_guest.to_dict(), 201
-    #     except ValueError as e:
-    #         return {'message': str(e)}, 400
-    #     except IntegrityError:
-    #         db.session.rollback()
-    #         return {'message': 'Integrity error. Check inputs.'}, 422
-
-
 class GuestResource(Resource): # For /guests/<int:id> if needed, though not explicitly in requirements
     def get(self, id):
         guest = Guest.query.get(id)
@@ -33,4 +18,4 @@ class GuestResource(Resource): # For /guests/<int:id> if needed, though not expl
             return {'message': 'Guest not found'}, 404
         return guest.to_dict(), 200
 
-    # PATCH /guests/<int:id> and DELETE /guests/<int:id> would go here
+   

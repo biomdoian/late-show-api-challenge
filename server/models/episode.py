@@ -24,7 +24,7 @@ class Episode(db.Model, SerializerMixin):
     def __repr__(self):
         return f'<Episode {self.id}: {self.date} (No. {self.number})>'
 
-    # --- Validation for Episode model ---
+    # Validation for Episode model 
     @validates('number')
     def validate_number(self, key, number):
         if not isinstance(number, int) or number <= 0:
@@ -33,7 +33,7 @@ class Episode(db.Model, SerializerMixin):
 
     @validates('date')
     def validate_date(self, key, date):
-        # Basic type check; more robust date validation (e.g., format) would be done at API input
+        # date validation would be done at API input
         if not isinstance(date, datetime) and not isinstance(date, type(None)):
             try:
                 date = datetime.strptime(str(date), '%Y-%m-%d').date()

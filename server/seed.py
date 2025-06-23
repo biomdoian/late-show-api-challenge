@@ -82,9 +82,7 @@ def seed_database():
             random_episode = random.choice(episodes)
             
             # Ensure unique guest-episode pair for appearances if desired, or allow multiple
-            # For simplicity, we'll allow multiple appearances of the same guest on the same episode
             # unless a unique constraint is added in the model.
-            
             appearance = Appearance(
                 rating=random.randint(1, 5), # Rating between 1 and 5
                 guest=random_guest,
